@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detector de Género, Grabadora y Transcripción</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Fondos izquierdo y derecho -->
+    <div class="background-left">
+        <img id="maleImage" src="imagenes/FrameHombre.jpg" alt="Hombre">
+        <video id="maleVideo" src="videos/HOMBRE.mp4" muted loop></video>
+    </div>
+    <div class="background-right">
+        <img id="femaleImage" src="imagenes/FrameMujer.jpg" alt="Mujer">
+        <video id="femaleVideo" src="videos/MUJER.mp4" muted loop></video>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Análisis de Voz Avanzado</h1>
+            <p class="subtitle">Graba (máx 30s), detecta género y transcribe texto</p>
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div id="timer" class="timer">Grabando: 0s / 30s</div>
+
+        <div class="mic-button-wrapper">
+            <button id="micButton" class="mic-button">
+                <svg id="micIcon" viewBox="0 0 24 24">
+                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="frequency-display">
+            <div class="freq-info">
+                <div class="freq-label">FRECUENCIA</div>
+                <div class="freq-val"><span id="frequencyValue">0</span> Hz</div>
+            </div>
+            <div id="genderBadge" class="gender-badge">-</div>
+        </div>
+
+        <div class="transcription-box">
+            <div class="transcription-label">Transcripción en vivo</div>
+            <textarea id="transcriptionText" readonly placeholder="Lo que digas aparecerá aquí..."></textarea>
+        </div>
+
+        <div id="audioWrapper" class="audio-player-wrapper">
+            <div class="transcription-label">Escucha tu grabación</div>
+            <audio id="audioPlayback" controls></audio>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="confirmationModal" class="confirmation-modal">
+        <div class="confirmation-content">
+            <div id="confirmationIcon" class="confirmation-icon">
+                <span id="iconEmoji"></span>
+            </div>
+            <div class="confirmation-title">Análisis Completado</div>
+            <div id="confirmationGender" class="confirmation-gender"></div>
+            
+            <!-- Transcripción en el modal -->
+            <div class="modal-transcription">
+                <div class="modal-transcription-label">Lo que dijiste:</div>
+                <div id="modalTranscriptionText" class="modal-transcription-text">...</div>
+            </div>
+            
+            <!-- Reproductor dentro del modal -->
+            <div id="audioWrapperModal" class="audio-player-wrapper in-modal">
+                <div class="transcription-label">Escucha tu grabación</div>
+                <audio id="audioPlaybackModal" controls></audio>
+            </div>
+            
+            <button id="retryButton" class="retry-button">🎙️ Volver a Grabar</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
