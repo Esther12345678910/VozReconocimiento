@@ -57,7 +57,6 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
     recognition.continuous = true;
     recognition.interimResults = true;
 
-    // evento para mostrar transcripción en tiempo real
     recognition.onresult = (event) => {
         let interimTranscript = '';
         let finalTranscript = '';
@@ -76,10 +75,20 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
 
         const display = (finalTranscriptAccumulated ? finalTranscriptAccumulated + (interimTranscript ? ' ' + interimTranscript : '') : interimTranscript);
         transcriptionText.value = display;
+
+        // log para depuración
+        console.log('Transcripción:', display);
     };
 
     recognition.onerror = (event) => {
         console.error("Error en reconocimiento de voz:", event.error);
+    };
+
+    // reiniciar reconocimiento si se detiene inesperadamente
+    recognition.onend = () => {
+        if (isRecording) {
+            recognition.start();
+        }
     };
 } else {
     transcriptionText.placeholder = "Tu navegador no soporta transcripción de voz a texto.";
